@@ -1,0 +1,242 @@
+:root {
+	--primary-color: #ff4fa3;
+	--primary-hover: #ff2e91;
+
+	--danger-color: #ff4d6d;
+	--danger-hover: #e63959;
+
+	--card-bg: rgba(255, 255, 255, 0.18);
+
+	--text-color:#000000;
+	--input-bg: rgba(255, 255, 255, 0.15);
+
+	--border-radius: 20px;
+
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Segoe UI', sans-serif;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+
+	background:radial-gradient(circle at top right, #ff9a9e, transparent 25%),
+	radial-gradient(circle at bottom left, #ff8dc7, transparent 20%),
+	linear-gradient(135deg, #ff4fa3,#8b5cf6);
+
+	padding: 20px;
+	
+}
+
+.container {
+	width: 100%;
+	max-width: 430px;
+
+}
+.task-card{
+	background: rgba(255, 255, 255, 0.18);
+	backdrop-filter: blur(15px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	padding: 30px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+	animation: fadeIn 0.6s ease;
+
+}
+.icon{
+	font-size: 50px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.titulo{
+	text-align: center;
+	color: white;
+	margin-bottom: 25px;
+	font-size: 30px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+input,
+textarea{
+	width: 100%;
+	padding: 14px;
+	border: none;
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.15);
+	color: white;
+	font-size: 15px;
+	outline: none;
+	transition: 0.3s;
+}
+input::placeholder,
+textarea::placeholder{
+	color: rgba(0, 0, 0, 0.8);
+}
+input:focus,
+textarea:focus{
+	background: rgba(0, 0, 0, 0.22);
+	transform: scale(1.02);
+}
+button {
+	padding: 14px;
+	border: none;
+	border-radius: 14px;
+	background: #ff4fa3;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	transition:  0.3s;
+}
+button:hover {
+	background: #ff2e91
+}
+
+.task-list {
+	list-style: none;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.task-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	background-color: rgba(0, 0, 0, 0.15);
+	padding: 15px;
+	border-radius: 14px;
+	animation:  slideup 0.4s ease;
+}
+
+.task-content h3 {
+	color: white;
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+
+.task-content p {
+
+	color: rgba(17, 10, 10, 0.8);
+	font-size: 13px;
+}
+.delete-btn {
+	background: #ff4d6d;
+	padding: 10px 14px;
+	border-radius: 10px;
+	font-size: 13px;
+}
+.delete-btn:hover {
+	background: #e63959;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de tarea</title>
+    <link rel="stylesheet" href="./styles.css">
+
+</head>
+
+<body>
+    <main class="container">
+        
+        <section class="task-card">
+            
+            <h1 class="titulo">Hoja de tarea</h1>
+            <form id ="task-form">
+                <input 
+                
+                 type="text"
+                 placeholder="Agrega el título de la tarea"
+                 name="titulo "
+                 required
+                >
+
+
+                <textarea 
+                
+                 placeholder="Agrega la descripción de la tarea" 
+                 type="text"
+                 name="description" 
+                 rows="4"
+                ></textarea>
+
+                <button type="submit">
+                    Agregar tarea
+                </button>
+
+            </form>
+            <ul id="task-list" class="task-list"></ul>
+               
+
+        </section>
+        
+        
+
+    </main>
+    <script src="./index.js"></script>
+</body>
+
+</html>
+ const form = document.getElementById("task-form");
+        const taskList = document.getElementById("task-list");
+
+        form.addEventListener("submit", addtask);
+
+		function addtask(event) {
+
+            event.preventDefault();
+
+            const titleInput = document.getElementById("title");
+            const descriptionInput = document.getElementById("description");
+
+			const title =titleInput.value.trim();
+			const description = descriptionInput.value.trim();
+
+			if (title === "") return;
+
+			const li = document.createElement("li");
+			li.classList.add("task-item");
+
+			li.innerHTML = `
+				<div class="task-content">
+                    <h3>${title}</h3>
+                    <p>${description || "Sin descripción"}</p>
+				</div>
+
+                <button class="delete-btn">
+                    Eliminar
+                </button>
+            `;
+
+            const deleteButton = li.querySelector(".delete-btn");
+
+            deleteButton.addEventListener("click", function () {
+                li.remove();
+            });
+
+            taskList.appendChild(li);
+
+			form.reset();
+		};
+
+
+
