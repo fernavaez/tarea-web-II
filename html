@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de tarea</title>
+    <link rel="stylesheet" href="./styles.css">
+
+</head>
+
+<body>
+    <main class="container">
+        
+        <section class="task-card">
+            
+            <h1 class="titulo">Hoja de tarea</h1>
+            <form id ="task-form">
+                <input 
+                
+                 type="text"
+                 placeholder="Agrega el título de la tarea"
+                 name="titulo "
+                 required
+                >
+
+
+                <textarea 
+                
+                 placeholder="Agrega la descripción de la tarea" 
+                 type="text"
+                 name="description" 
+                 rows="4"
+                ></textarea>
+
+                <button type="submit">
+                    Agregar tarea
+                </button>
+
+            </form>
+            <ul id="task-list" class="task-list"></ul>
+               
+
+        </section>
+        
+        
+
+    </main>
+    <script src="./index.js"></script>
+</body>
+
+</html>
